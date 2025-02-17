@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Master any skill in just 20 hours with our proven learning method and progress tracking app">
+    <title>Master Any Skill in 20 Hours | Learn Faster, Better</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyY1iaJWVSgjwtyjKWCs4mk+hEWGr6FehsQ+ib6EJosip5EsORfNzgE7EZaaM/uikDs/Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Add preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <a href="/" aria-label="Home">
+                        <i class="fas fa-graduation-cap"></i>
+                        20-Hour App
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="{{ url_for('login') }}" class="cta-button">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Master Any Skill in 20 Hours</h1>
+                    <p>Unlock your potential and achieve mastery with our proven method. Track your progress, stay motivated,
+                        and transform your life, one skill at a time.</p>
+                    <div class="cta-group">
+                        <a href="{{ url_for('signup') }}" class="cta-button">Get Started Free</a>
+                        <a href="#features" class="cta-button secondary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Transform Your Learning Journey</h2>
+                <p class="section-subtitle">Powerful features to accelerate your skill acquisition</p>
+                <div class="feature-grid">
+                    <div class="feature">
+                        <i class="fas fa-stopwatch"></i>
+                        <h3>Smart Time Tracking</h3>
+                        <p>Monitor your 20-hour progress with our intelligent tracking system. Set goals, track sessions, and stay focused.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Progress Visualization</h3>
+                        <p>Watch your progress unfold with beautiful, interactive charts and detailed analytics.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>Smart Reminders</h3>
+                        <p>Stay consistent with AI-powered reminders that adapt to your schedule and learning patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+                <h2>Success Stories</h2>
+                <p class="section-subtitle">Join thousands of learners who have transformed their skills</p>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"This app has transformed my learning habits. I've learned more in the past month than I have in
+                                the past year! The progress tracking keeps me motivated every day."</p>
+                            <div class="author-info">
+                                <img src="{{ url_for('static', filename='images/user1.jpg') }}" alt="John Doe" class="author-image">
+                                <div>
+                                    <p class="author-name">John Doe</p>
+                                    <p class="author-title">Software Developer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"The 20-hour method really works! I've picked up three new skills in the past two months.
+                                The visualization tools make it fun to track progress."</p>
+                            <div class="author-info">
+                                <img src="{{ url_for('static', filename='images/user2.jpg') }}" alt="Jane Smith" class="author-image">
+                                <div>
+                                    <p class="author-name">Jane Smith</p>
+                                    <p class="author-title">Digital Artist</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <h2>Simple, Transparent Pricing</h2>
+                <p class="section-subtitle">Choose the plan that fits your learning journey</p>
+                <div class="pricing-grid">
+                    <div class="pricing-plan">
+                        <div class="plan-header">
+                            <h3>Free</h3>
+                            <p class="price">$0<span>/month</span></p>
+                            <p>Perfect for getting started</p>
+                        </div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Track up to 3 skills</li>
+                            <li><i class="fas fa-check"></i> Basic progress tracking</li>
+                            <li><i class="fas fa-check"></i> Community support</li>
+                        </ul>
+                        <a href="{{ url_for('signup') }}" class="cta-button">Start Free</a>
+                    </div>
+                    <div class="pricing-plan featured">
+                        <div class="plan-header">
+                            <span class="badge">Most Popular</span>
+                            <h3>Premium</h3>
+                            <p class="price">$9<span>/month</span></p>
+                            <p>For serious learners</p>
+                        </div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Track unlimited skills</li>
+                            <li><i class="fas fa-check"></i> Advanced analytics</li>
+                            <li><i class="fas fa-check"></i> AI-powered reminders</li>
+                            <li><i class="fas fa-check"></i> Priority support</li>
+                        </ul>
+                        <a href="{{ url_for('signup') }}?plan=premium" class="cta-button">Get Premium</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>20-Hour App</h3>
+                    <p>Transform your learning journey</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 20-Hour App. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Follow us on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Follow us on GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

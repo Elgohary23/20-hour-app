@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}{{ skill.title }} - Skill Detail{% endblock %}
+
+{% block content %}
+<div class="skill-detail-container">
+    <div class="skill-header priority-{{ skill.priority }}">
+        <h2>{{ skill.title }}</h2>
+        <div class="skill-meta">
+            <span class="priority">{{ skill.priority.capitalize() }}</span>
+            <div class="tags">
+                {% for tag in skill.tags.split(',') %}
+                    <span class="tag">{{ tag.strip() }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="skill-info">
+        <p><strong>Added on:</strong> {{ skill.created_at.strftime('%B %d, %Y') }}</p>
+        <p><strong>Total Time Spent:</strong> {{ "%.1f"|format(skill.duration_hours) }} hours</p>
+    </div>
+
+    <div class="timer-section">
+        <h3>Pomodoro Timer</h3>
+        <div id="timer">
+            <label for="duration">Enter Duration (minutes):</label>
+            <input type="number" id="duration" value="25" min="1">
+            <span id="time">25:00</span>
+            <div class="timer-controls">
+                <button id="startBtn">Start Session</button>
+                <button id="resetBtn">Reset Timer</button>
+            </div>
+            <div class="progress-bar">
+                <div id="progress"></div>
+            </div>
+            <div class="session-counter">
+                Sessions Completed: <span id="sessionCount">0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let timer;
+    let timeLeft = 1500; // Default 25 minutes in seconds
+    let isRunning = false;
+    let sessionCount = 0;
+    const startBtn = document.getElementById('startBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const timeDisplay = document.getElementById('time');
+    const progress = document.getElementById('progress');
+    const sessionCounter = document.getElementById('sessionCount');
+    const durationInput = document.getElementById('duration');
+
+    durationInput.addEventListener('change', function() {
+        timeLeft = parseInt(this.value) * 60;
+        updateDisplay();
+    });
+
+    startBtn.addEventListener('click', function() {
+        if (!isRunning) {
+            isRunning = true;
+            startBtn.textContent = 'Pause Session';
+            startBtn.style.backgroundColor = '#e74c3c';
+
+            timer = setInterval(function() {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    isRunning = false;
+                    sessionCount++;
+                    sessionCounter.textContent = sessionCount;
+                    startBtn.textContent = 'Start Session';
+                    startBtn.style.backgroundColor = '#2ecc71';
+                    alert('Pomodoro session finished!');
+                    const skillId = JSON.parse(this.dataset.skillid);
+                    const duration = parseInt(durationInput.value);
+                    fetch('/skill/' + skillId, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ duration }),
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Success:', data);
+                        location.reload();
+                    })
+                    .catch(error => console.error('Error:', error));
+                } else {
+                    let minutes = Math.floor(timeLeft / 60);
+                    let seconds = timeLeft % 60;
+                    seconds = seconds < 10 ? '0' + seconds : seconds;
+                    timeDisplay.textContent = minutes + ':' + seconds;
+                    timeLeft--;
+                    progress.style.width = ((parseInt(durationInput.value) * 60 - timeLeft) / (parseInt(durationInput.value) * 60)) * 100 + '%';
+                }
+            }, 1000);
+        } else {
+            clearInterval(timer);
+            isRunning = false;
+            startBtn.textContent = 'Resume Session';
+            startBtn.style.backgroundColor = '#2ecc71';
+        }
+    });
+
+    resetBtn.addEventListener('click', function() {
+        clearInterval(timer);
+        isRunning = false;
+        timeLeft = parseInt(durationInput.value) * 60;
+        updateDisplay();
+        startBtn.textContent = 'Start Session';
+        startBtn.style.backgroundColor = '#2ecc71';
+        progress.style.width = '0%';
+    });
+
+    function updateDisplay() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        timeDisplay.textContent = minutes + ':' + seconds;
+    }
+</script>
+{% endblock %}

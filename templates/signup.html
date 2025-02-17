@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h1 class="auth-title text-center mb-4">Join Skill Tracker</h1>
+    <p class="welcome-text text-center mb-4">Track your learning journey and manage your skills effectively.</p>
+    
+    <h2 class="text-center mb-4">Create Your Account</h2>
+    <form method="POST" class="auth-form mx-auto p-4 border rounded shadow-sm">
+        <div class="form-group">
+            <label for="username" class="sr-only">Username:</label>
+            <input type="text" id="username" name="username" required class="form-input form-control" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="email" class="sr-only">Email:</label>
+            <input type="email" id="email" name="email" required class="form-input form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="password" class="sr-only">Password:</label>
+            <input type="password" id="password" name="password" required class="form-input form-control" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+    </form>
+    <p class="auth-link text-center mt-4">Already have an account? <a href="{{ url_for('login') }}" class="link">Login</a></p>
+</div>
+{% endblock %}
